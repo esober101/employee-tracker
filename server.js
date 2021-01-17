@@ -1,7 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var cTable = require('console.table');
-const { restoreDefaultPrompts } = require("inquirer");
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -187,5 +186,29 @@ function viewEmployees() {
     start();
 }
 
-
-
+function updateEmployeeRoles() {
+    connection.query("SELECT first_name, last_name, id FROM employees", function (err, response){
+        let employees = response.map(employee => ({
+            name: employee.first_name + " " + employee.last_name, 
+            value: employee.id 
+        }))
+        inquirer.prompt (
+        {
+            type: "list",
+            name: "employee",
+            message: "Choose employee to update"
+        },
+        {
+            type: "input",
+            name: "role",
+            message: "Enter new role"
+        }
+    )
+    .then (function(response){
+        connection.query("UPDATE employees SET rol_id = $(response.role} WHERE id = ${response.employeeName}",
+        function (err, response){
+            console.log(response);
+        })
+        start();
+    });
+})}
