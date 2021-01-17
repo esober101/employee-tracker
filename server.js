@@ -87,3 +87,36 @@ function addDepartments() {
     });
 }
 
+function addRoles() {
+    inquirer.prompt({
+        type: "input",
+        name: "title",
+        message: "Add title"
+    },
+    {
+        type: "input",
+        name: "salary",
+        message: "Add salary"
+    },
+    {
+        type: "input",
+        name: "role_id",
+        message: "Add department id"
+    },
+    )
+    .then(function (response) {
+        connection.query("INSERT INTO role SET?",
+        {
+            title: response.title,
+            salary: response.salary,
+            department_id: response.department_id
+        },
+        function(err) {
+            if (err) throw err;
+            console.log("Role added successfully")
+        },
+        );
+        start();
+    });
+}
+
