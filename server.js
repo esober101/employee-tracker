@@ -65,4 +65,25 @@ function start() {
                 break;
         }
     });
-};
+}
+
+function addDepartments() {
+    inquirer.prompt({
+        type: "input",
+        name: "department",
+        message: "Add department"
+    })
+    .then(function (response) {
+        connection.query("INSERT INTO department SET?",
+        {
+            name: response.department
+        },
+        function(err) {
+            if (err) throw err;
+            console.log("Department added successfully")
+        },
+        );
+        start();
+    });
+}
+
