@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 var cTable = require('console.table');
+const { restoreDefaultPrompts } = require("inquirer");
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -158,4 +159,15 @@ function addEmployees() {
         start();
     });
 }
+
+function viewDepartments() {
+    connection.query("SELECT * FROM department", function (err, response){
+        console.table(response);
+        if (err) throw err;
+        console.log("Departments")
+    });
+    start();
+}
+
+
 
