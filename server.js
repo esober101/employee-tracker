@@ -178,5 +178,14 @@ function viewRoles() {
     start();
 }
 
+function viewEmployees() {
+    connection.query("SELECT * FROM employee", function (err, response){
+        console.table(response);
+        if (err) throw err;
+        console.log("Employees")
+    });
+    start();
+}
+
 
 
