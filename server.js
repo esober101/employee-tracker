@@ -100,7 +100,7 @@ function addRoles() {
     },
     {
         type: "input",
-        name: "role_id",
+        name: "departmentId",
         message: "Add department id"
     },
     )
@@ -109,11 +109,50 @@ function addRoles() {
         {
             title: response.title,
             salary: response.salary,
-            department_id: response.department_id
+            department_id: response.departmentId
         },
         function(err) {
             if (err) throw err;
             console.log("Role added successfully")
+        },
+        );
+        start();
+    });
+}
+
+function addEmployees() {
+    inquirer.prompt({
+        type: "input",
+        name: "first",
+        message: "First name"
+    },
+    {
+        type: "input",
+        name: "last",
+        message: "Last name"
+    },
+    {
+        type: "input",
+        name: "roleId",
+        message: "Employee role"
+    },
+    {
+        type: "input",
+        name: "managerId",
+        message: "Manager id"
+    },
+    )
+    .then(function (response) {
+        connection.query("INSERT INTO employee SET?",
+        {
+            first_name: response.first,
+            last_name: response.last,
+            role_id: response.roleId,
+            manager_id: response.managerId
+        },
+        function(err) {
+            if (err) throw err;
+            console.log("Employee added successfully")
         },
         );
         start();
