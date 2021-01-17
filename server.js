@@ -169,5 +169,14 @@ function viewDepartments() {
     start();
 }
 
+function viewRoles() {
+    connection.query("SELECT * FROM role ", function (err, response){
+        console.table(response);
+        if (err) throw err;
+        console.log("Roles")
+    });
+    start();
+}
+
 
 
